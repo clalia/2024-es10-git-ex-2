@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -41,30 +43,72 @@ public class DataHelper {
         return randomNumbers;
     }
 
+
     // restituisce una lista di numeri casuali NON DUPLICATI compresi tra 0 e 10
     public static List<Integer> getRandomUniqueInteger(int size) {
-        if(size>11){
+        List<Integer> PossibleNumbers= new ArrayList<>();
+        Random random=new Random();
+        for(int i=0; i<11;i++){
+            PossibleNumbers.add(i);
+        }
+        Collections.shuffle(possibleNumbers, new Random());
 
-    // return null;
-    // }
+        // Se size è maggiore di 11, limita la lista a 11 elementi
+        return possibleNumbers.subList(0, Math.min(size, 11));
+    }
+        
 
     // // restituisce una lista di numeri casuali NON DUPLICATI compresi tra 0 e max
-    // public static ??? getRandomUniqueInteger(int size, int max) {
-    //
-    // return null;
+    public class RandomNumbers {
+        public static List<Integer> getRandomUniqueInteger(int size, int max) {
+            if (size > max + 1) {
+                size = max + 1; // Limitiamo la dimensione a max + 1, perché non possiamo avere più di (max + 1) numeri unici tra 0 e max
+            }
+    
+            List<Integer> possibleNumbers = new ArrayList<>();
+            for (int i = 0; i <= max; i++) {
+                possibleNumbers.add(i);
+            }
+            
+            Collections.shuffle(possibleNumbers, new Random());
+    
+            return possibleNumbers.subList(0, size);
+        }
+    }
+    
     // }
 
     // // restituisce una lista di numeri casuali NON DUPLICATI compresi tra min e
     // max
-    // public static ??? getRandomUniqueInteger(int size, int min, int max) {
-    //
-    // return null;
-    // }
+    public static List<Integer> getRandomUniqueInteger(int size, int min, int max) {
+        if (min > max) {
+            throw new IllegalArgumentException("min should not be greater than max");
+        }
+        
+        int range = max - min + 1;
+        if (size > range) {
+            size = range; // Limitiamo la dimensione al numero massimo di valori unici disponibili
+        }
+
+        List<Integer> possibleNumbers = new ArrayList<>();
+        for (int i = min; i <= max; i++) {
+            possibleNumbers.add(i);
+        }
+        
+        Collections.shuffle(possibleNumbers, new Random());
+
+        return possibleNumbers.subList(0, size);
+    }
+    
 
     // restituisce una mappa di frequenza di numeri interi
-    // public static ??? getFrequencyMap(List<Integer> list) {
-    //
-    // return null;
-    // }
+     public static Map<Integer, Integer> getFrequencyMap(List<Integer> list) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
 
+        for (int number : numbers) {
+            frequencyMap.put(number, frequencyMap.getOrDefault(number, 0) + 1);
+        }
+
+        return frequencyMap;
+    }
 }
